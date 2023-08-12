@@ -8,7 +8,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-const saveUser = async (user) => {
+const saveUser = (user) => {
 
     const CHAT_ID = user.CHAT_ID;
 
@@ -31,4 +31,23 @@ const saveUser = async (user) => {
     });
 }
 
+const saveMessage = (user, message) => {
+
+    const CHAT_ID = user.CHAT_ID;
+
+    const userRef = db.collection('users').doc(String(CHAT_ID));
+    const messagesRef = userRef.collection('messages');
+
+    console.log(message);
+
+    messagesRef.add(message)
+        .then(docRef => {
+            console.log('Message stored with ID: ', docRef.id);
+        })
+        .catch(error => {
+            console.log('Error adding message: ', error);
+        });
+}
+
 module.exports = saveUser;
+module.exports = saveMessage;
