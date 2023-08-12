@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 const axios = require('axios');
 
-const { saveMessage, saveUser } = require('./db');
+const { saveMessage, saveUser, saveResponse } = require('./db');
 //const saveMessage = require('./db');
 
 //Create ChatCompletion using OpenAI API and send via the telegram Bot
@@ -29,9 +29,10 @@ const sendMessage = async (chat_id, content) => {
 
     const MESSAGE = chat_completion.data.choices[0].message.content;
 
-
     console.log("Sending Message...")
     console.log(`To ${CHAT_ID}`)
+
+    saveResponse(CHAT_ID, MESSAGE)
 
     try {
         const response = await axios.post(SEND_MESSAGE_URL, {

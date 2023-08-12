@@ -31,7 +31,7 @@ const saveUser = (user) => {
     }).catch(error => {
         console.error("Error checking user existence: ", error);
     });
-}
+};
 
 const saveMessage = (user, content) => {
 
@@ -57,10 +57,32 @@ const saveMessage = (user, content) => {
         .catch(error => {
             console.log('Error adding message: ', error);
         });
+};
+
+const saveResponse = (chat_id, response) => {
+
+    const userRef = db.collection('users').doc(String(chat_id));
+    const messagesRef = userRef.collection('messages');
+
+    const SAVE_MESSAGE = {
+        role : "system",
+        to : "user",
+        content : response,
+        timestamp : new Date()
+    };
+
+    messagesRef.add(SAVE_MESSAGE)
+        .then(docRef => {
+            console.log('Message stored with ID: ', docRef.id);
+        })
+        .catch(error => {
+            console.log('Error adding message: ', error);
+        });
 }
 
 
 module.exports = {
     saveUser,
-    saveMessage
+    saveMessage,
+    saveResponse
 };
