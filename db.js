@@ -10,11 +10,9 @@ const db = admin.firestore();
 
 const saveUser = async (user) => {
 
-    console.log(user);
-
     const CHAT_ID = user.CHAT_ID;
 
-    const userRef = db.collection('users').doc(CHAT_ID);
+    const userRef = db.collection('users').doc(String(CHAT_ID));
 
     userRef.get().then(docSnapshot => {
         if (docSnapshot.exists) {

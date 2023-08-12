@@ -57,8 +57,10 @@ const handleMessage = (received_Message) => {
     }
 
     //For Debugging
+    /*
     console.log(received_Message);
     console.log(USER);
+    */
 
     saveUser(USER);
     sendMessage(USER.CHAT_ID, CONTENT);
