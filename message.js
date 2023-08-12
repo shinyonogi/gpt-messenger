@@ -13,17 +13,21 @@ const openai = new OpenAIApi(configuration);
 
 const axios = require('axios');
 
+const saveUser = require('./db');
 
-const sendMessage = async (chat_id) => {
+//Create ChatCompletion using OpenAI API and send via the telegram Bot
+const sendMessage = async (chat_id, content) => {
+
+    const CHAT_ID = chat_id;
+    const CONTENT = content;
 
     const chat_completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: "What is your name?" }],
+        messages: [{ role: "user", content: CONTENT }],
     });
 
     const MESSAGE = chat_completion.data.choices[0].message.content;
 
-    const CHAT_ID = chat_id;
 
     console.log("Sending Message...")
     console.log(`To ${CHAT_ID}`)
@@ -40,4 +44,27 @@ const sendMessage = async (chat_id) => {
     }
 }
 
+//Handle Received Message. This method will be called first whenever Bot receives a message.
+const handleMessage = (received_Message) => {
+
+    const CONTENT = received_Message.message.text;
+
+    const USER = {
+        CHAT_ID : received_Message.message.chat.id,
+        FIRST_NAME : received_Message.message.chat.first_name,
+        LAST_NAME : received_Message.message.chat.last_name,
+        LANGUAGE_CODE : received_Message.message.from.language_code
+    }
+
+    //For Debugging
+    console.log(received_Message);
+    console.log(USER);
+
+    saveUser(USER);
+    sendMessage(USER.CHAT_ID, CONTENT);
+
+}
+
+
 module.exports = sendMessage;
+module.exports = handleMessage;

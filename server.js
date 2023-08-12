@@ -1,4 +1,5 @@
 const sendMessage = require('./message');
+const handleMessage = require('./message')
 
 const express = require("express");
 
@@ -11,8 +12,9 @@ app.post('/telegram-webhook', (req, res) => {
 
     console.log(req.body);
 
-    const conversation_id = req.body.message.chat.id;
-    sendMessage(conversation_id);
+    //const conversation_id = req.body.message.chat.id;
+    //sendMessage(conversation_id);
+    handleMessage(req.body)
 
     res.status(200).send('OK');
 })
