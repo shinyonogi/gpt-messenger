@@ -20,14 +20,17 @@ const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('./db'
 const sendMessage = async (chat_id, content) => {
 
     const CHAT_ID = chat_id;
-    const CONTENT = content;
 
-    const ALL_MESSAGES = await fetchAllMessages(chat_id);
-    console.log(ALL_MESSAGES);
+    let ALL_MESSAGES = await fetchAllMessages(chat_id);
+    //console.log(ALL_MESSAGES);
+
+    ALL_MESSAGES.unshift({role : 'user', content: content})
+    console.log(ALL_MESSAGES.slice(0, 5));
 
     const chat_completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: CONTENT }],
+        //messages: [{ role: "user", content: content}],
+        messages: ALL_MESSAGES.slice(0, 20).reverse()
     });
 
     const MESSAGE = chat_completion.data.choices[0].message.content;

@@ -80,7 +80,7 @@ const saveResponse = async (chat_id, response) => {
 }
 
 const fetchAllMessages = async (chat_id) => {
-    const messagesRef = db.collection('users').doc(String(chat_id)).collection('messages');
+    const messagesRef = db.collection('users').doc(String(chat_id)).collection('messages').orderBy('timestamp', 'desc');;
 
     try {
         const snapshot = await messagesRef.get();
@@ -94,7 +94,8 @@ const fetchAllMessages = async (chat_id) => {
         //console.log(snapshot);
 
         snapshot.forEach(doc => {
-            messages.push({ id: doc.id, ...doc.data() });
+            //messages.push({ id: doc.id, ...doc.data() });
+            messages.push({ role: doc.data().role, content: doc.data().content});
         });
 
         //console.log(messages);
