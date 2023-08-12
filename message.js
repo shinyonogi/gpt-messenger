@@ -1,15 +1,14 @@
-const info = require('./info');
-const telegram_api_key = info.telegram_api_key;
-const open_ai_api_key = info.open_ai_api_key;
+const INFO = require('./info');
+const TOKEN = INFO.Telegram_TOKEN;
+const API_KEY = INFO.OPENAI_API_KEY;
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-    apiKey: open_ai_api_key,
+    apiKey: API_KEY
 });
+const openai = new OpenAIApi(configuration);
 
 const axios = require('axios');
-
-const openai = new OpenAIApi(configuration);
 
 /*
 const chat_completion = await openai.createChatCompletion({
@@ -18,22 +17,18 @@ const chat_completion = await openai.createChatCompletion({
 })
 */
 
-const TOKEN = telegram_api_key;
-const text = "hello :)"
-
-const BASE_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-
 const sendMessage = async (chat_id) => {
 
-    console.log("Sending Message...")
-    console.log(`To ${chat_id}`)
-
     const CHAT_ID = chat_id;
+    const SEND_MESSAGE_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+    console.log("Sending Message...")
+    console.log(`To ${CHAT_ID}`)
 
     try {
-        const response = await axios.post(BASE_URL, {
+        const response = await axios.post(SEND_MESSAGE_URL, {
         chat_id: CHAT_ID,
-        text: text
+        text: 'Hello World!'
         });
 
         console.log('Message sent:', response.data);

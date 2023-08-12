@@ -1,5 +1,4 @@
 const sendMessage = require('./message');
-const Dog = require('./message');
 
 const express = require("express");
 
