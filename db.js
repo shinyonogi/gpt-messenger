@@ -10,6 +10,8 @@ const db = admin.firestore();
 
 const saveUser = (user) => {
 
+    console.log("In saveUser section...");
+
     const CHAT_ID = user.CHAT_ID;
 
     const userRef = db.collection('users').doc(String(CHAT_ID));
@@ -31,16 +33,24 @@ const saveUser = (user) => {
     });
 }
 
-const saveMessage = (user, message) => {
+const saveMessage = (user, content) => {
 
     const CHAT_ID = user.CHAT_ID;
 
     const userRef = db.collection('users').doc(String(CHAT_ID));
     const messagesRef = userRef.collection('messages');
 
-    console.log(message);
+    const MESSAGE = {
+        role : "user",
+        to : "system",
+        content : content,
+        timestamp : new Date()
+    };
 
-    messagesRef.add(message)
+    console.log("In the save Message section...");
+    //console.log(user);
+    //console.log(content);
+    messagesRef.add(MESSAGE)
         .then(docRef => {
             console.log('Message stored with ID: ', docRef.id);
         })
@@ -49,5 +59,8 @@ const saveMessage = (user, message) => {
         });
 }
 
-module.exports = saveUser;
-module.exports = saveMessage;
+
+module.exports = {
+    saveUser,
+    saveMessage
+};

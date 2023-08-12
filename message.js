@@ -13,8 +13,8 @@ const openai = new OpenAIApi(configuration);
 
 const axios = require('axios');
 
-const saveUser = require('./db');
-const saveMessage = require('./db');
+const { saveMessage, saveUser } = require('./db');
+//const saveMessage = require('./db');
 
 //Create ChatCompletion using OpenAI API and send via the telegram Bot
 const sendMessage = async (chat_id, content) => {
@@ -57,26 +57,18 @@ const handleMessage = (received_Message) => {
         LANGUAGE_CODE : received_Message.message.from.language_code
     };
 
-    const MESSAGE = {
-        from : "Bot",
-        to : "USER",
-        content : CONTENT,
-        timestamp : new Date()
-    };
-
     //For Debugging
     /*
     console.log(received_Message);
     console.log(USER);
+    console.log(CONTENT)
     */
-    //console.log(MESSAGE);
 
     saveUser(USER);
-    saveMessage(USER, MESSAGE);
+    saveMessage(USER, CONTENT);
     sendMessage(USER.CHAT_ID, CONTENT);
 
 }
 
 
-module.exports = sendMessage;
 module.exports = handleMessage;
