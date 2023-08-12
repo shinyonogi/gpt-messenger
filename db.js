@@ -13,7 +13,6 @@ const saveUser = (user) => {
     console.log("In saveUser section...");
 
     const CHAT_ID = user.CHAT_ID;
-
     const userRef = db.collection('users').doc(String(CHAT_ID));
 
     userRef.get().then(docSnapshot => {
@@ -59,7 +58,7 @@ const saveMessage = (user, content) => {
         });
 };
 
-const saveResponse = (chat_id, response) => {
+const saveResponse = async (chat_id, response) => {
 
     const userRef = db.collection('users').doc(String(chat_id));
     const messagesRef = userRef.collection('messages');
@@ -80,9 +79,37 @@ const saveResponse = (chat_id, response) => {
         });
 }
 
+const fetchAllMessages = async (chat_id) => {
+    const messagesRef = db.collection('users').doc(String(chat_id)).collection('messages');
+
+    try {
+        const snapshot = await messagesRef.get();
+        if (snapshot.empty) {
+            console.log('No matching documents found.');
+            return [];
+        }
+
+        let messages = [];
+        //console.log("Snapshot...");
+        //console.log(snapshot);
+
+        snapshot.forEach(doc => {
+            messages.push({ id: doc.id, ...doc.data() });
+        });
+
+        //console.log(messages);
+
+        return messages;
+
+    } catch (error) {
+      console.error("Error fetching messages: ", error);
+    }
+};
+
 
 module.exports = {
     saveUser,
     saveMessage,
-    saveResponse
+    saveResponse,
+    fetchAllMessages
 };

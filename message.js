@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration);
 
 const axios = require('axios');
 
-const { saveMessage, saveUser, saveResponse } = require('./db');
+const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('./db');
 //const saveMessage = require('./db');
 
 //Create ChatCompletion using OpenAI API and send via the telegram Bot
@@ -21,6 +21,9 @@ const sendMessage = async (chat_id, content) => {
 
     const CHAT_ID = chat_id;
     const CONTENT = content;
+
+    const ALL_MESSAGES = await fetchAllMessages(chat_id);
+    console.log(ALL_MESSAGES);
 
     const chat_completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
