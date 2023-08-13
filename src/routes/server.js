@@ -15,6 +15,13 @@ app.post('/telegram-webhook', (req, res) => {
 
 });
 
+app.post('/line-webhook', (req, res) => {
+
+    console.log(req.body);
+
+    res.status(200).send('OK');
+})
+
 app.listen(PORT, () => {
 
     console.log("Server is running on Port: ", PORT);

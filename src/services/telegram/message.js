@@ -16,6 +16,17 @@ const openai = new OpenAIApi(CONFIGURATION);
 
 const sendMessage = async (chat_id, content) => {
 
+    axios.post(`https://api.telegram.org/bot${TOKEN}/sendChatAction`, {
+        chat_id: chat_id,
+        action: 'typing'
+        })
+        .then(response => {
+        console.log('Typing action sent:', response.data);
+        })
+        .catch(error => {
+        console.error('Error sending typing action:', error);
+    });
+
     let ALL_MESSAGES = await fetchAllMessages(chat_id);
     ALL_MESSAGES.unshift({role : 'user', content: content})
 
