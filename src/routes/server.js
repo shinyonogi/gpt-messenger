@@ -41,6 +41,7 @@ app.post('/line-webhook', (req, res) => {
         line_handleMessage(req.body.events);
 
         res.sendStatus(200);
+
     } else {
 
         console.warn('Invalid LINE signature');

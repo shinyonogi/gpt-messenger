@@ -19,3 +19,14 @@ The ambitious vision for this system extends beyond immediate interaction. With 
 - `Google Firebase`
 - `Telegram Messaging API & Telegram Bot`
 - `ngrok`
+
+## 💬 Version 1.1
+
+**Description:**
+
+- Line support
+
+**Used:**
+
+- `Line Messaging API`
+
