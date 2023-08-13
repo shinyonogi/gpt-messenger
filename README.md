@@ -1,5 +1,4 @@
-# ChatBot For Self-Learning 
+# 🤖 ChatBot For SRL (Self Regulated Learning)
 
-## About the project 
-- Webhook
-- Using Line Messaging API
+## Versions
+- Version 1.0: ChatGPT integrated in Telegram
