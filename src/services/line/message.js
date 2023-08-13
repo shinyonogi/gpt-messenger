@@ -1,4 +1,3 @@
-const axios = require('axios');
 const line = require('@line/bot-sdk');
 
 const { Configuration, OpenAIApi } = require("openai");
