@@ -1,26 +1,21 @@
 var admin = require("firebase-admin");
-
 var serviceAccount = require('./webhook-chatbot-65815-firebase-adminsdk-bnyih-ba13430a8b.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
-
 const db = admin.firestore();
+
 
 const saveUser = (user) => {
 
-    console.log("In saveUser section...");
-
-    const CHAT_ID = user.CHAT_ID;
-    const userRef = db.collection('users').doc(String(CHAT_ID));
+    const userRef = db.collection('users').doc(String(user.CHAT_ID));
 
     userRef.get().then(docSnapshot => {
         if (docSnapshot.exists) {
             console.log('User already exists!');
         }else {
             console.log('User does not exist. Creating new...');
-
             userRef.set({
                 first_name : user.FIRST_NAME,
                 last_name : user.LAST_NAME,
