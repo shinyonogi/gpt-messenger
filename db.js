@@ -29,9 +29,7 @@ const saveUser = (user) => {
 
 const saveMessage = (user, content) => {
 
-    const CHAT_ID = user.CHAT_ID;
-
-    const userRef = db.collection('users').doc(String(CHAT_ID));
+    const userRef = db.collection('users').doc(String(user.CHAT_ID));
     const messagesRef = userRef.collection('messages');
 
     const MESSAGE = {
@@ -41,9 +39,6 @@ const saveMessage = (user, content) => {
         timestamp : new Date()
     };
 
-    console.log("In the save Message section...");
-    //console.log(user);
-    //console.log(content);
     messagesRef.add(MESSAGE)
         .then(docRef => {
             console.log('Message stored with ID: ', docRef.id);
@@ -75,7 +70,8 @@ const saveResponse = async (chat_id, response) => {
 }
 
 const fetchAllMessages = async (chat_id) => {
-    const messagesRef = db.collection('users').doc(String(chat_id)).collection('messages').orderBy('timestamp', 'desc');;
+
+    const messagesRef = db.collection('users').doc(String(chat_id)).collection('messages').orderBy('timestamp', 'desc');
 
     try {
         const snapshot = await messagesRef.get();
@@ -85,15 +81,9 @@ const fetchAllMessages = async (chat_id) => {
         }
 
         let messages = [];
-        //console.log("Snapshot...");
-        //console.log(snapshot);
-
         snapshot.forEach(doc => {
-            //messages.push({ id: doc.id, ...doc.data() });
             messages.push({ role: doc.data().role, content: doc.data().content});
         });
-
-        //console.log(messages);
 
         return messages;
 
