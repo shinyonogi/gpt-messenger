@@ -1,5 +1,5 @@
 const express = require("express");
-const handleMessage = require('./message')
+const handleMessage = require('../services/telegram/message')
 
 const app = express();
 const PORT = 3000;
@@ -13,7 +13,7 @@ app.post('/telegram-webhook', (req, res) => {
 
     res.status(200).send('OK');
 
-})
+});
 
 app.listen(PORT, () => {
 

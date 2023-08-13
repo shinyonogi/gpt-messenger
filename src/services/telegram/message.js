@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { Configuration, OpenAIApi } = require("openai");
-const INFO = require('./info');
-const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('./db');
+const INFO = require('../../../info');
+const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('../../database/db');
 
 const TOKEN = INFO.Telegram_TOKEN;
 const SEND_MESSAGE_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
@@ -33,7 +33,6 @@ const sendMessage = async (chat_id, content) => {
         console.error('Error sending message:', error);
     }
 }
-
 
 
 const handleMessage = (received_Message) => {

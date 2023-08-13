@@ -1,5 +1,5 @@
 var admin = require("firebase-admin");
-var serviceAccount = require('./webhook-chatbot-65815-firebase-adminsdk-bnyih-ba13430a8b.json');
+var serviceAccount = require('../../webhook-chatbot-65815-firebase-adminsdk-bnyih-ba13430a8b.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)

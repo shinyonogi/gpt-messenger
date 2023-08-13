@@ -1,2 +1,8 @@
+#Node Modules/Dependencies
+node_modules/
+
+#API Tokens/Keys etc.
 info.js
+
+#FireBase Configuration
 webhook-chatbot-65815-firebase-adminsdk-bnyih-ba13430a8b.json
