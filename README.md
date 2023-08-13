@@ -18,3 +18,4 @@ The ambitious vision for this system extends beyond immediate interaction. With 
 - `Node.js`
 - `Google Firebase`
 - `Telegram Messaging API & Telegram Bot`
+- `ngrok`
