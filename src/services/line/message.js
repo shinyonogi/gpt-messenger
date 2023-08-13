@@ -1,8 +1,8 @@
 const axios = require('axios');
+const line = require('@line/bot-sdk');
+
 const { Configuration, OpenAIApi } = require("openai");
 const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('../../database/db');
-const crypto = require('crypto');
-const line = require('@line/bot-sdk');
 
 require('dotenv').config();
 const LINE_CHANNEL_SECRET = process.env.LINE_CHANNEL_SECRET;
