@@ -21,13 +21,43 @@ const OPENAI_CONFIGURATION = new Configuration({
 const openai = new OpenAIApi(OPENAI_CONFIGURATION);
 
 
+const line_sendMessage = async (chat_id, content, reply_token) => {
+
+    let ALL_MESSAGES = await fetchAllMessages(chat_id);
+    ALL_MESSAGES.unshift({role : 'user', content: content})
+
+    const chat_completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: ALL_MESSAGES.slice(0, 20).reverse()
+    });
+    const MESSAGE = chat_completion.data.choices[0].message.content;
+
+    saveResponse(chat_id, MESSAGE)
+
+    try {
+        bot.replyMessage(reply_token, { type:'text', text: MESSAGE});
+        console.log('Line Message sent.');
+    } catch (error) {
+        console.error('Error sending message:', error);
+    }
+}
+
 const line_handleMessage = (received_Message) => {
 
-    const replyToken = received_Message[0].replyToken;
-    console.log(replyToken)
+    const CONTENT = received_Message[0].message.text;
 
-    bot.replyMessage(replyToken, { type:'text', text: '息してる？'})
+    const REPLY_TOKEN = received_Message[0].replyToken;
 
+    const USER = {
+        CHAT_ID : received_Message[0].source.userId,
+        FIRST_NAME : null,
+        LAST_NAME : null,
+        LANGUAGE_CODE : null
+    };
+
+    saveUser(USER);
+    saveMessage(USER, CONTENT);
+    line_sendMessage(USER.CHAT_ID, CONTENT, REPLY_TOKEN);
 }
 
 module.exports = line_handleMessage;

@@ -1,18 +1,17 @@
 const axios = require('axios');
 const { Configuration, OpenAIApi } = require("openai");
 const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('../../database/db');
-require('dotenv').config();
 
+require('dotenv').config();
 const TOKEN = process.env.TELEGRAM_TOKEN
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
-const SEND_MESSAGE_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 
 const CONFIGURATION = new Configuration({
     apiKey: OPENAI_API_KEY
 });
 const openai = new OpenAIApi(CONFIGURATION);
 
+const SEND_MESSAGE_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 
 const sendMessage = async (chat_id, content) => {
 
