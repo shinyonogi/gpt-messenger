@@ -39,6 +39,7 @@ const line_sendMessage = async (chat_id, content, reply_token) => {
     } catch (error) {
         console.error('Error sending message:', error);
     }
+
 }
 
 const line_handleMessage = (received_Message) => {
