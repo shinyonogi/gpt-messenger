@@ -44,20 +44,36 @@ const line_sendMessage = async (chat_id, content, reply_token) => {
 
 const line_handleMessage = (received_Message) => {
 
-    const CONTENT = received_Message[0].message.text;
+    switch (received_Message[0].type) {
+        case 'postback':
 
-    const REPLY_TOKEN = received_Message[0].replyToken;
+            //Handling postback messages
+            console.log('Postback message received');
 
-    const USER = {
-        CHAT_ID : received_Message[0].source.userId,
-        FIRST_NAME : null,
-        LAST_NAME : null,
-        LANGUAGE_CODE : null
-    };
+            break;
 
-    saveUser(USER);
-    saveMessage(USER, CONTENT);
-    line_sendMessage(USER.CHAT_ID, CONTENT, REPLY_TOKEN);
+        case 'message':
+
+            const CONTENT = received_Message[0].message.text;
+
+            const REPLY_TOKEN = received_Message[0].replyToken;
+
+            const USER = {
+                CHAT_ID : received_Message[0].source.userId,
+                FIRST_NAME : null,
+                LAST_NAME : null,
+                LANGUAGE_CODE : null
+            };
+
+            saveUser(USER);
+            saveMessage(USER, CONTENT);
+            line_sendMessage(USER.CHAT_ID, CONTENT, REPLY_TOKEN);
+
+            break;
+
+        default:
+            console.log('Neither postback nor message!');
+    }
 }
 
 module.exports = line_handleMessage;

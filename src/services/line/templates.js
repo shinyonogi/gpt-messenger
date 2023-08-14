@@ -21,4 +21,4 @@ const message = {
     }
 };
 
-//client.pushMessage(USER_ID, message);
+bot.pushMessage("U510f9cf39877c90303e875ae111f913e", message);
