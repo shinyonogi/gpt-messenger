@@ -1,16 +1,6 @@
-const express = require("express");
-const crypto = require('crypto');
-
 const handleMessage = require('../services/telegram/message');
 const line_handleMessage = require('../services/line/message');
-
-require('dotenv').config();
-const CHANNEL_SECRET = process.env.LINE_CHANNEL_SECRET;
-
-const app = express();
-const PORT = 3000;
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const {app, PORT, crypto, CHANNEL_SECRET} = require('../configuration/config');
 
 
 app.post('/telegram-webhook', (req, res) => {
