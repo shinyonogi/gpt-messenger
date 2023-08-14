@@ -9,6 +9,14 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+var admin = require("firebase-admin");
+var serviceAccount = require('../../webhook-chatbot-65815-firebase-adminsdk-bnyih-ba13430a8b.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+const db = admin.firestore();
+
 require('dotenv').config();
 const LINE_CHANNEL_SECRET = process.env.LINE_CHANNEL_SECRET;
 const LINE_ACCESS_TOKEN = process.env.LINE_ACCESS_TOKEN
@@ -35,6 +43,7 @@ module.exports = {
     app: app,
     PORT: PORT,
     crypto: crypto,
+    db: db,
     SEND_MESSAGE_URL: SEND_MESSAGE_URL,
     TOKEN: TOKEN,
     CHANNEL_SECRET: LINE_CHANNEL_SECRET

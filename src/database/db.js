@@ -1,10 +1,4 @@
-var admin = require("firebase-admin");
-var serviceAccount = require('../../webhook-chatbot-65815-firebase-adminsdk-bnyih-ba13430a8b.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-const db = admin.firestore();
+const { db } = require('../configuration/config');
 
 
 const saveUser = (user) => {
