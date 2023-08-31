@@ -28,7 +28,6 @@ const generateResponse = async ( chatId, receivedMessage ) => {
     if (replyMessageEmpty) {
         replyMessage = await completion(allMessages);
         console.log(replyMessage);
-        saveResponse(chatId, replyMessage);
         replyBody = {
             chat_id : chatId,
             text: replyMessage
@@ -37,7 +36,7 @@ const generateResponse = async ( chatId, receivedMessage ) => {
         replyBody = replyMessage;
     }
 
-    return replyBody;
+    return [replyBody, replyMessage];
 
 }
 

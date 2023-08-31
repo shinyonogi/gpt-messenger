@@ -1,4 +1,4 @@
-const { saveReceivedMessage, saveUser } = require('../../database/db');
+const { saveReceivedMessage, saveUser, saveResponse } = require('../../database/db');
 const generateResponse = require('./generateResponse');
 const sendResponse = require('./sendResponse');
 
@@ -16,8 +16,12 @@ const handleMessage = async ( requestBody ) => {
     saveUser(user);
     saveReceivedMessage(user, receivedMessage);
 
-    const response = await generateResponse(chatId, receivedMessage);
-    sendResponse(response);
+    const responseGenerated = await generateResponse(chatId, receivedMessage);
+    const responseBody = responseGenerated[0];
+    sendResponse(responseBody);
+
+    const responseMessage = responseGenerated[1];
+    saveResponse(chatId, receivedMessage);
 };
 
 module.exports = handleMessage;
