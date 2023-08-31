@@ -1,5 +1,4 @@
 const autoReply = ( chatId　) => {
-
     let replyMessage = {};
     const step = -1;
 
@@ -20,7 +19,6 @@ const autoReply = ( chatId　) => {
     }
 
     return replyMessage;
-
 }
 
 module.exports = autoReply;

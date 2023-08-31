@@ -4,7 +4,6 @@ const completion = require('../gpt/completion');
 const autoReply = require('../../botflow/autoreply');
 
 const generateResponse = async ( chatId, receivedMessage ) => {
-
     let replyBody;
 
     axios.post(`https://api.telegram.org/bot${TOKEN}/sendChatAction`, {
