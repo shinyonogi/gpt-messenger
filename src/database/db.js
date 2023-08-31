@@ -16,7 +16,7 @@ const saveUser = (user) => {
                 language_code : user.LANGUAGE_CODE
             })
         }
-    }).catch(error => {
+    }).catch(error => {　
         console.error("Error checking user existence: ", error);
     });
 };

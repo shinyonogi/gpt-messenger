@@ -1,5 +1,7 @@
 const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('../../database/db');
 const { axios, openai, TOKEN, SEND_MESSAGE_URL} = require('../../configuration/config')
+const completion = require('../gpt/completion');
+const autoReply = require('../../botflow/autoreply');
 
 
 const sendMessage = async (chat_id, content) => {
@@ -16,22 +18,30 @@ const sendMessage = async (chat_id, content) => {
     });
 
     let ALL_MESSAGES = await fetchAllMessages(chat_id);
-    ALL_MESSAGES.unshift({role : 'user', content: content})
+    //ALL_MESSAGES.unshift({role : 'user', content: content})
 
+
+    /*
     const chat_completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: ALL_MESSAGES.slice(0, 20).reverse()
     });
     const MESSAGE = chat_completion.data.choices[0].message.content;
+    */
+    let MESSAGE = autoReply();
 
-    saveResponse(chat_id, MESSAGE)
-
-    try {
-        const response = await axios.post(SEND_MESSAGE_URL, { chat_id: chat_id, text: MESSAGE});
-        console.log('Message sent:', response.data);
-    } catch (error) {
-        console.error('Error sending message:', error);
+    if (MESSAGE === "") {
+        MESSAGE = await completion(ALL_MESSAGES);
+        console.log(MESSAGE);
+        saveResponse(chat_id, MESSAGE)
+        try {
+            const response = await axios.post(SEND_MESSAGE_URL, { chat_id: chat_id, text: MESSAGE});
+            console.log('Message sent:', response.data);
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
     }
+
 }
 
 
