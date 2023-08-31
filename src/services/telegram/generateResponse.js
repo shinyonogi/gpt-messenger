@@ -9,13 +9,13 @@ const generateResponse = async ( chatId, receivedMessage ) => {
 
     typingResponse(chatId);
 
-    let allMessages = await fetchAllMessages(chatId);
-    allMessages.unshift({role : 'user', content : receivedMessage})
 
+    // Problem hier!
     let replyMessage = autoReply(chatId);
     const replyMessageEmpty = Object.keys(replyMessage).length === 0;
-
     if (replyMessageEmpty) {
+        let allMessages = await fetchAllMessages(chatId);
+        allMessages.unshift({role : 'user', content : receivedMessage});
         replyMessage = await completion(allMessages);
         console.log(replyMessage);
         replyBody = {
@@ -27,7 +27,6 @@ const generateResponse = async ( chatId, receivedMessage ) => {
     }
 
     return [replyBody, replyMessage];
-
 }
 
 module.exports = generateResponse;
