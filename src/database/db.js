@@ -1,9 +1,8 @@
 const { db } = require('../configuration/config');
 
 
-const saveUser = (user) => {
-
-    const userRef = db.collection('users').doc(String(user.CHAT_ID));
+const saveUser = ( user ) => {
+    const userRef = db.collection('users').doc(String(user.chatId));
 
     userRef.get().then(docSnapshot => {
         if (docSnapshot.exists) {
@@ -11,9 +10,9 @@ const saveUser = (user) => {
         }else {
             console.log('User does not exist. Creating new...');
             userRef.set({
-                first_name : user.FIRST_NAME,
-                last_name : user.LAST_NAME,
-                language_code : user.LANGUAGE_CODE
+                first_name : user.firstName,
+                last_name : user.lastName,
+                language_code : user.languageCode
             })
         }
     }).catch(error => {　
@@ -21,19 +20,17 @@ const saveUser = (user) => {
     });
 };
 
-const saveMessage = (user, content) => {
-
-    const userRef = db.collection('users').doc(String(user.CHAT_ID));
+const saveReceivedMessage = ( user, receivedMessage ) => {
+    const userRef = db.collection('users').doc(String(user.chatId));
     const messagesRef = userRef.collection('messages');
-
-    const MESSAGE = {
+    const messageToSave = {
         role : "user",
         to : "system",
-        content : content,
+        content : receivedMessage,
         timestamp : new Date()
     };
 
-    messagesRef.add(MESSAGE)
+    messagesRef.add(messageToSave)
         .then(docRef => {
             console.log('Message stored with ID: ', docRef.id);
         })
@@ -42,19 +39,17 @@ const saveMessage = (user, content) => {
         });
 };
 
-const saveResponse = async (chat_id, response) => {
-
-    const userRef = db.collection('users').doc(String(chat_id));
+const saveResponse = async ( chatId, response ) => {
+    const userRef = db.collection('users').doc(String(chatId));
     const messagesRef = userRef.collection('messages');
-
-    const SAVE_MESSAGE = {
+    const messageToSave = {
         role : "system",
         to : "user",
         content : response,
         timestamp : new Date()
     };
 
-    messagesRef.add(SAVE_MESSAGE)
+    messagesRef.add(messageToSave)
         .then(docRef => {
             console.log('Message stored with ID: ', docRef.id);
         })
@@ -63,9 +58,9 @@ const saveResponse = async (chat_id, response) => {
         });
 }
 
-const fetchAllMessages = async (chat_id) => {
+const fetchAllMessages = async ( chatId ) => {
 
-    const messagesRef = db.collection('users').doc(String(chat_id)).collection('messages').orderBy('timestamp', 'desc');
+    const messagesRef = db.collection('users').doc(String(chatId)).collection('messages').orderBy('timestamp', 'desc');
 
     try {
         const snapshot = await messagesRef.get();
@@ -89,7 +84,7 @@ const fetchAllMessages = async (chat_id) => {
 
 module.exports = {
     saveUser,
-    saveMessage,
+    saveReceivedMessage,
     saveResponse,
     fetchAllMessages
 };

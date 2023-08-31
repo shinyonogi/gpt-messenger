@@ -4,6 +4,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 
 const express = require("express");
+const router = express.Router();
 const app = express();
 const PORT = 8000;
 app.use(express.json());
@@ -41,6 +42,7 @@ module.exports = {
     bot: bot,
     axios: axios,
     app: app,
+    router: router,
     PORT: PORT,
     crypto: crypto,
     db: db,
