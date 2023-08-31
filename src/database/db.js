@@ -59,7 +59,6 @@ const saveResponse = async ( chatId, response ) => {
 }
 
 const fetchAllMessages = async ( chatId ) => {
-
     const messagesRef = db.collection('users').doc(String(chatId)).collection('messages').orderBy('timestamp', 'desc');
 
     try {
