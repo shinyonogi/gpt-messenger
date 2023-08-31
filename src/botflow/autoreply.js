@@ -1,4 +1,4 @@
-const autoReply = () => {
+const autoReply = ( chat_id) => {
 
     const step = -1;
 

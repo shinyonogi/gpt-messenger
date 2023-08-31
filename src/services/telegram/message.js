@@ -18,7 +18,7 @@ const sendMessage = async (chat_id, content) => {
     });
 
     let ALL_MESSAGES = await fetchAllMessages(chat_id);
-    //ALL_MESSAGES.unshift({role : 'user', content: content})
+    ALL_MESSAGES.unshift({role : 'user', content: content})
 
 
     /*
@@ -28,18 +28,34 @@ const sendMessage = async (chat_id, content) => {
     });
     const MESSAGE = chat_completion.data.choices[0].message.content;
     */
-    let MESSAGE = autoReply();
+    let MESSAGE = autoReply( chat_id );
 
     if (MESSAGE === "") {
         MESSAGE = await completion(ALL_MESSAGES);
+        const REPLYMESSAGE = { chat_id: chat_id, text: MESSAGE}
         console.log(MESSAGE);
         saveResponse(chat_id, MESSAGE)
         try {
-            const response = await axios.post(SEND_MESSAGE_URL, { chat_id: chat_id, text: MESSAGE});
+            const response = await axios.post(SEND_MESSAGE_URL, REPLYMESSAGE);
             console.log('Message sent:', response.data);
         } catch (error) {
             console.error('Error sending message:', error);
         }
+    }else {
+        const REPLYMESSAGE = MESSAGE;
+        const keyboard = {
+            inline_keyboard: [
+                [{ text: 'ボタン1', callback_data: 'data1' }],
+                [{ text: 'ボタン2', callback_data: 'data2' }]
+            ]
+        };
+        try {
+            const response = await axios.post(SEND_MESSAGE_URL, {chat_id: chat_id, text: MESSAGE, reply_markup: keyboard});
+            console.log('Message sent:', response.data);
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+
     }
 
 }
