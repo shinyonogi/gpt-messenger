@@ -1,4 +1,6 @@
-const { saveReceivedMessage, saveUser, saveResponse } = require('../../database/db');
+const saveResponse = require('../../database/saveResponse');
+const saveReceivedMessage = require('../../database/saveReceivedMessage');
+const saveUser = require('../../database/saveUser');
 const generateResponse = require('./generateResponse');
 const sendResponse = require('./sendResponse');
 

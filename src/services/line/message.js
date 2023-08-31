@@ -1,4 +1,5 @@
-const { saveMessage, saveUser, saveResponse, fetchAllMessages } = require('../../database/db');
+const saveResponse = require('../../database/saveResponse');
+const saveUser = require('../../database/saveUser');
 const { openai, bot, axios } = require('../../configuration/config');
 
 

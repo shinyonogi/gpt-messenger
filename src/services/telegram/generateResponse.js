@@ -1,7 +1,8 @@
-const { fetchAllMessages } = require('../../database/db');
 const { axios, TOKEN } = require('../../configuration/config')
 const completion = require('../gpt/completion');
 const autoReply = require('../../botflow/autoreply');
+const fetchAllMessages =  require('../../database/fetchAllMessages')
+
 
 const generateResponse = async ( chatId, receivedMessage ) => {
     let replyBody;
