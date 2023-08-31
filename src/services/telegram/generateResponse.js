@@ -1,4 +1,4 @@
-const { saveResponse, fetchAllMessages } = require('../../database/db');
+const { fetchAllMessages } = require('../../database/db');
 const { axios, TOKEN } = require('../../configuration/config')
 const completion = require('../gpt/completion');
 const autoReply = require('../../botflow/autoreply');
