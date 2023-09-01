@@ -1,6 +1,7 @@
 const { db } = require('../configuration/config');
 
-const saveResponse = async ( chatId, response ) => {
+
+const saveResponse = ( chatId, response ) => {
     const userRef = db.collection('users').doc(String(chatId));
     const messagesRef = userRef.collection('messages');
     const messageToSave = {

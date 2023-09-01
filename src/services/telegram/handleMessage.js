@@ -23,7 +23,7 @@ const handleMessage = async ( requestBody ) => {
     sendResponse(responseBody);
 
     const responseMessage = responseGenerated[1];
-    saveResponse(chatId, receivedMessage);
+    saveResponse(chatId, responseMessage);
 };
 
 module.exports = handleMessage;
