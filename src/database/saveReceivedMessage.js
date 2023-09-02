@@ -2,6 +2,7 @@ const { db } = require('../configuration/config');
 
 
 const saveReceivedMessage = ( user, receivedMessage ) => {
+
     const userRef = db.collection('users').doc(String(user.chatId));
     const messagesRef = userRef.collection('messages');
     const messageToSave = {
@@ -18,6 +19,7 @@ const saveReceivedMessage = ( user, receivedMessage ) => {
         .catch(error => {
             console.log('Error adding message: ', error);
         });
+
 };
 
 module.exports = saveReceivedMessage;

@@ -1,24 +1,42 @@
-const autoReply = ( chatId　) => {
-    let replyMessage = {};
-    const step = -1;
+const getStepNumber = require('../database/getStepNumber');
+
+const autoReply = async ( chatId　) => {
+
+    let reply;
+    let keyboard;
+    const step = await getStepNumber(chatId);
+    console.log("@autoReply, StepNr: " + step);
 
     if (step === 0) {
-        reply = 'What are your academic goals this semester?';
-    }else if (step === 1) {
+        reply = 'How high is your academic goal this semester?';
+    } else if (step === 1) {
         reply = 'What grades are you aiming in your courses?';
+    } else {
+        return {};
     }
 
-    if (step !== -1) {
-        const keyboard = {
+    if (step === 0) {
+        keyboard = {
             inline_keyboard: [
-                [{ text: 'ボタン1', callback_data: 'data1' }],
-                [{ text: 'ボタン2', callback_data: 'data2' }]
+                [{ text: 'High', callback_data: 'high' }],
+                [{ text: 'Middle', callback_data: 'middle' }],
+                [{ text: 'Low', callback_data: 'low' }]
             ]
         };
-        replyMessage = {chat_id: chat_id, text: reply, reply_markup: keyboard}
+    }else if (step === 1) {
+        keyboard = {
+            inline_keyboard : [
+                [{ text: 'Should be 1!', callback_data: '1'}],
+                [{ text: 'Around 2.0', callback_data: '2'}],
+                [{ text: 'Around 3.0', callback_data: '3'}],
+                [{ text: 'Just pass (4.0 is enough)', callback_data: '4'}]
+            ]
+        }
     }
 
+    const replyMessage = {chat_id: chatId, text: reply, reply_markup: keyboard}
     return replyMessage;
-}
+
+};
 
 module.exports = autoReply;

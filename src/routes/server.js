@@ -6,6 +6,4 @@ const lineRoute = require('./lineRoute');
 app.use('/', telegramRoute);
 app.use('/', lineRoute);
 
-app.listen(PORT, () => {
-    console.log("Server is running on Port: ", PORT);
-})
+app.listen(PORT, () => { console.log("Server is running on Port: ", PORT); })

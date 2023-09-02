@@ -1,6 +1,7 @@
 const { axios, TOKEN } = require('../../configuration/config');
 
 const typingResponse = ( chatId ) => {
+
     axios.post(`https://api.telegram.org/bot${TOKEN}/sendChatAction`, {
         chat_id: chatId,
         action: 'typing'
@@ -11,6 +12,7 @@ const typingResponse = ( chatId ) => {
         .catch(error => {
         console.error('Error sending typing action:', error);
     });
+
 };
 
 module.exports = typingResponse;

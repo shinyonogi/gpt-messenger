@@ -2,6 +2,7 @@ const { db } = require('../configuration/config');
 
 
 const fetchAllMessages = async ( chatId ) => {
+
     const messagesRef = db.collection('users').doc(String(chatId)).collection('messages').orderBy('timestamp', 'desc');
 
     try {
@@ -21,6 +22,7 @@ const fetchAllMessages = async ( chatId ) => {
     } catch (error) {
       console.error("Error fetching messages: ", error);
     }
+
 };
 
 module.exports = fetchAllMessages;

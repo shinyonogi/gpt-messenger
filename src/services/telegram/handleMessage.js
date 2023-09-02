@@ -15,15 +15,17 @@ const handleMessage = async ( requestBody ) => {
         languageCode : requestBody.message.from.language_code
     };
 
-    saveUser(user);
+    const userExist = await saveUser(user);
     saveReceivedMessage(user, receivedMessage);
 
     const responseGenerated = await generateResponse(chatId, receivedMessage);
     const responseBody = responseGenerated[0];
     sendResponse(responseBody);
 
+    /*
     const responseMessage = responseGenerated[1];
     saveResponse(chatId, responseMessage);
+    */
 };
 
 module.exports = handleMessage;

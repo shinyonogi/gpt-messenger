@@ -2,6 +2,7 @@ const { db } = require('../configuration/config');
 
 
 const saveResponse = ( chatId, response ) => {
+
     const userRef = db.collection('users').doc(String(chatId));
     const messagesRef = userRef.collection('messages');
     const messageToSave = {
@@ -18,6 +19,7 @@ const saveResponse = ( chatId, response ) => {
         .catch(error => {
             console.log('Error adding message: ', error);
         });
+
 }
 
 module.exports = saveResponse;
