@@ -5,7 +5,7 @@ const saveUser = async ( user ) => {
 
     const userRef = db.collection('users').doc(String(user.chatId));
 
-    userRef.get().then(docSnapshot => {
+    await userRef.get().then(docSnapshot => {
         if (docSnapshot.exists) {
             console.log('User already exists!');
             return true;

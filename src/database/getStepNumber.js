@@ -16,6 +16,11 @@ const getStepNumber = async ( chatId ) => {
         }
     } catch (error) {
         console.log("Error getting document:", error);
+        //DB currently does not return a value if the user is not initiated! -> TypeError
+        //Potential solution: If TypeError ocurrs, assume user is initiated and has step_nr of 0
+        if (error instanceof TypeError) {
+            return 0;
+        }
     }
 
 }
