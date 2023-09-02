@@ -2,7 +2,7 @@
 node_modules/
 
 #Line (Currently Not Needed)
-services/line
+src/services/line
 src/routes/lineRoute.js
 
 #FireBase Configuration
