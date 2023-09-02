@@ -5,6 +5,7 @@ const typingResponse = require('./typingResponse');
 
 
 const generateResponse = async ( chatId, receivedMessage ) => {
+
     let replyBody;
     let replyMessage;
 
@@ -26,6 +27,7 @@ const generateResponse = async ( chatId, receivedMessage ) => {
     }
 
     return [replyBody, replyMessage];
+
 }
 
 module.exports = generateResponse;
