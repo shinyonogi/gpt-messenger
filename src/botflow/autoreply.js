@@ -6,7 +6,6 @@ const autoReply = async ( chatId　) => {
     let reply;
     let keyboard;
     let step = await getStepNumber(chatId);
-    //console.log("@autoReply, StepNr: " + step);
 
     if (step === 0) {
         reply = 'How high is your academic goal this semester?';

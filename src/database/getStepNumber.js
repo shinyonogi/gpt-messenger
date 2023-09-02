@@ -4,8 +4,6 @@ const { db } = require('../configuration/config');
 const getStepNumber = async ( chatId ) => {
 
     const userRef = db.collection('users').doc(String(chatId));
-    //console.log("@getStepNumer: ChatID: " + chatId);
-    //console.log(userRef);
 
     try {
         const snapshot = await userRef.get();
