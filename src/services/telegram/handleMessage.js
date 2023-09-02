@@ -6,6 +6,7 @@ const sendResponse = require('./sendResponse');
 
 
 const handleMessage = async ( requestBody ) => {
+
     const receivedMessage = String(requestBody.message.text);
     const chatId = requestBody.message.chat.id;
     const user = {
@@ -26,6 +27,7 @@ const handleMessage = async ( requestBody ) => {
     const responseMessage = responseGenerated[1];
     saveResponse(chatId, responseMessage);
     */
+
 };
 
 module.exports = handleMessage;
