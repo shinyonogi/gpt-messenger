@@ -14,7 +14,7 @@ const saveReceivedMessage = ( user, receivedMessage ) => {
 
     messagesRef.add(messageToSave)
         .then(docRef => {
-            console.log('Message stored with ID: ', docRef.id);
+            console.log('Received Message stored with ID: ', docRef.id);
         })
         .catch(error => {
             console.log('Error adding message: ', error);

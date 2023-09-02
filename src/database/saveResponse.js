@@ -14,7 +14,7 @@ const saveResponse = ( chatId, response ) => {
 
     messagesRef.add(messageToSave)
         .then(docRef => {
-            console.log('Message stored with ID: ', docRef.id);
+            console.log('Response stored with ID: ', docRef.id);
         })
         .catch(error => {
             console.log('Error adding message: ', error);

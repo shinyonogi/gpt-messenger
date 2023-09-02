@@ -4,7 +4,7 @@ const autoReply = async ( chatId　) => {
 
     let reply;
     let keyboard;
-    const step = await getStepNumber(chatId);
+    let step = await getStepNumber(chatId);
     console.log("@autoReply, StepNr: " + step);
 
     if (step === 0) {

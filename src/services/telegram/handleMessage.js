@@ -23,10 +23,8 @@ const handleMessage = async ( requestBody ) => {
     const responseBody = responseGenerated[0];
     sendResponse(responseBody);
 
-    /*
     const responseMessage = responseGenerated[1];
     saveResponse(chatId, responseMessage);
-    */
 
 };
 
