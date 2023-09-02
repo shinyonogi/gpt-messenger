@@ -6,27 +6,27 @@ const typingResponse = require('./typingResponse');
 
 const generateResponse = async ( chatId, receivedMessage ) => {
 
-    let replyBody;
-    let replyMessage;
+    let responseBody;
+    let responseMessage;
 
     typingResponse(chatId);
 
-    replyBody = await autoReply(chatId);
-    const replyMessageEmpty = Object.keys(replyBody).length === 0;
+    responseBody = await autoReply(chatId);
+    const replyMessageEmpty = Object.keys(responseBody).length === 0;
     if (replyMessageEmpty) {
         let allMessages = await fetchAllMessages(chatId);
         //allMessages.unshift({role : 'user', content : receivedMessage});
-        replyMessage = await completion(allMessages);
-        console.log("@generateResponse, Reply Message: " + replyMessage);
-        replyBody = {
+        responseMessage = await completion(allMessages);
+        console.log("@generateResponse, Reply Message: " + responseMessage);
+        responseBody = {
             chat_id : chatId,
-            text: replyMessage
+            text: responseMessage
         };
     }else {
-        replyMessage = replyBody.text;
+        responseMessage = responseBody.text;
     }
 
-    return [replyBody, replyMessage];
+    return {responseBody: responseBody, responseMessage: responseMessage};
 
 }
 

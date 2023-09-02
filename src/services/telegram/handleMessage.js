@@ -21,10 +21,10 @@ const handleMessage = async ( requestBody ) => {
         saveReceivedMessage(user, receivedMessage);
 
         const responseGenerated = await generateResponse(chatId, receivedMessage);
-        const responseBody = responseGenerated[0];
+        const responseBody = responseGenerated.responseBody;
         sendResponse(responseBody);
 
-        const responseMessage = responseGenerated[1];
+        const responseMessage = responseGenerated.responseMessage;
         saveResponse(chatId, responseMessage);
 
     }else if (requestBody.callback_query) {
