@@ -20,13 +20,13 @@ The ambitious vision for this system extends beyond immediate interaction. With 
 - `Telegram Messaging API & Telegram Bot`
 - `ngrok`
 
-## 💬 Version 1.1
+## 💬 Version 1.1 (Currently Not Available)
 
 **Description:**
 
-- Line support
+- ~~Line support~~
 
 **Used:**
 
-- `Line Messaging API`
+- ~~`Line Messaging API`~~
 
