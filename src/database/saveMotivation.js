@@ -6,7 +6,7 @@ const saveMotivation = ( chatId, motivationLevel ) => {
 
     userRef.set({
         motivation_level: motivationLevel
-    })
+    }, { merge: true })
 
 }
 
