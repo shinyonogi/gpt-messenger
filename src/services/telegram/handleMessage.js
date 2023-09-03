@@ -28,7 +28,8 @@ const handleMessage = async ( requestBody ) => {
         saveResponse(chatId, responseMessage);
 
     }else if (requestBody.callback_query) {
-        //handleCallback(requestBody.callback_query);
+        const chatId = requestBody.callback_query.from.id;
+        handleCallback(chatId, requestBody.callback_query);
     }
 
 };
