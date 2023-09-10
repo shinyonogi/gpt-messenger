@@ -1,18 +1,40 @@
-# 🤖 ChatBot For SRL (Self Regulated Learning)
+# Open AI Messenger Bot
 
-We are currently in the process of developing an innovative chatbot system, underpinned by research, with the intent to revolutionize individualized learning experiences. By utilizing personal attributes—such as age, gender, personality traits, and mental well-being—our chatbot aims to provide tailored learning pathways for each user.
+This project connects OpenAI's GPT API with popular messenger applications, specifically Telegram and Line, to enable dynamic chatbot functionalities.
 
-Utilizing the Telegram and LINE Messaging APIs, the envisioned chatbot will act as a personalized learning assistant. As users interact with the bot, their messages will be promptly routed through our Node.js-powered backend system, ensuring swift and adaptive responses. All user data and interaction histories will be securely archived on Google Firebase, ensuring seamless learning continuity.
+## Overview
+Upon receiving a message in Telegram or Line, our bot forwards the message to a backend system. This system then consults the GPT-3.5 model to generate an appropriate response, which is subsequently relayed back to the user via the messaging app. The bot has the capability to send automated responses based on certain conditions or use the GPT chat completion feature.
 
-The ambitious vision for this system extends beyond immediate interaction. With continuous user engagement, the chatbot is designed to identify and adapt to the most effective learning strategies and schedules for each individual. From orchestrating learning plans, furnishing instant answers, to dispatching reminders, the chatbot aims to be not just a digital tool, but an engaged learning ally.
+All chat histories, including messages received and generated, are stored in Google Cloud's Firebase Database to maintain conversation context and enhance user experience. The database also captures and updates user-specific events and information.
+
+## Features
+- Dynamic Chatbot: Utilizes GPT-3.5 chat completion for generating user-specific responses.
+- Contextual Awareness: Stores chat histories in Firebase Database to keep track of conversation context.
+- User Profiles: Maintains a record of user information and their interactions, updating them based on new events.
+- Automated & GPT Responses: Differentiates between conditions when an automatic response is required and when GPT chat completion is triggered.
+
+## How it Works
+### 1. Bot Account Creation:
+Telegram: Created using BotFather.
+Line: Set up through Line developer tools.
+### 2. Message Forwarding: Messages received by these bots are sent to the backend system using webhooks.
+### 3. Response Generation: The backend system communicates with the GPT-3.5 model to get a response. This can be:
+- An automatic reply based on predefined conditions.
+- A reply generated through GPT chat completion.
+### 4. Sending Response: The generated reply is sent back to the user via the respective messaging app.
+### 5. Data Storage: All chats, as well as user-specific events and data, are stored and updated in the Firebase Database.
+
+## Future Enhancements
+- Improve the differentiation logic between automated and GPT-based responses.
+- Experiment with various contexts to refine GPT model behavior.
 
 ## 📚 Version 1.0
 
 **Description:**
 
-- ChatGPT integrated in Telegram
+- ChatGPT with Telegram
 
-**Used:**
+**Used / Dependencies:**
 
 - `JavaScript`
 - `Node.js`
